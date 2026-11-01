@@ -5,6 +5,25 @@ from core import *
 
 
 class T(unittest.TestCase):
+    def test_dp_selected_items(self):
+        value, names, cells = dp_knapsack(INSTANCE, CAPACITY)
+
+        self.assertEqual(value, 174)
+        self.assertEqual(names, ("P2", "P3", "P4"))
+        self.assertLessEqual(totals(INSTANCE, names)[1], CAPACITY)
+
+    def test_dp_empty_items(self):
+        value, names, cells = dp_knapsack([], CAPACITY)
+
+        self.assertEqual(value, 0)
+        self.assertEqual(names, ())
+        self.assertEqual(cells, CAPACITY + 1)
+
+    def test_dp_zero_capacity(self):
+        value, names, cells = dp_knapsack(INSTANCE, 0)
+
+        self.assertEqual(value, 0)
+        self.assertEqual(names, ())
     def test_instance_optimum(self):
         bf = brute_force(INSTANCE, CAPACITY)
         self.assertEqual(bf[0], 174)
